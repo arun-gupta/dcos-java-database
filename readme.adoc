@@ -1,6 +1,6 @@
-= Java + Database to DC/OS
+= Java + Database on DC/OS
 
-This repository shows how to deploy a Java application talking to a database in DC/OS.
+This repository shows how to deploy a Java application talking to a database on DC/OS.
 
 Specifically, a Java EE application deployed in WildFly talking to a Couchbase database.
 
