@@ -1,32 +1,19 @@
-= Docker Java Sample
+= Java + Database to DC/OS
 
-This repository contain samples that shows integration of Docker and Java.
+This repository shows how to deploy a Java application talking to a database in DC/OS.
 
-== Maven
+Specifically, a Java EE application deployed in WildFly talking to a Couchbase database.
 
-=== Classical
-
-. Build app: `mvn package`
-. Run app: `mvn exec:java`
-
-=== With Docker
-
-. Build image: `mvn package -Pdocker`
-. Run container: `mvn install -Pdocker`
-
-=== With DC/OS
-
-. Run application: `mvn install -Pdcos`
-
-== Gradle
-
-=== Classical
-
-. Build app: `./gradlew build`
-. Run app: `./gradlew run`
-
-=== With Docker
-
-. Build image: `./gradlew dockerBuildImage`
-. Run container: `./gradlew startContainer`
+. Launch https://downloads.dcos.io/dcos/stable/aws.html?_ga=1.207445715.1510362819.1478208859[DC/OS CloudFormation template]
+. If not done already, download CLI
+. `dcos config set core.dcos_url http://DCOS-ElasticLoadBa-OG73USRXKTX-912507967.us-west-1.elb.amazonaws.com`
+. `dcos auth login`
+. `dcos config show core.dcos_acs_token`
+.. Copy the value in `.dcos-token`
+. `dcos package install marathon-lb`
+. Update `app-definition.json` with `PublicSlaveDnsAddress`
+. Update `pom.xml` with `DnsAddress`
+. Deploy app: `mvn install -Pdcos`
+. Show services deployed at http://<DnsAddress>
+. Access application: curl http://<PublicSlaveDnsAddress>/airlines/resources/airline
 
